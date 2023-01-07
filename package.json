@@ -1,10 +1,11 @@
 {
-  "name": "@revolist/revogrid",
+  "name": "@rivercoders/revogrid",
   "version": "3.3.0",
   "description": "Virtual reactive data grid component - RevoGrid.",
   "license": "MIT",
   "directories": {
-    "doc": "docs"
+    "doc": "docs",
+    "test": "test"
   },
   "author": "revolist",
   "homepage": "https://github.com/revolist/revogrid#readme",
