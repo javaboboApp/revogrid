@@ -157,7 +157,7 @@ export class FilterPanel {
               type="text"
               value={currentFilter[index].value}
     
-              onClick={e => this.onUserClickDataPicker.bind(this, index, prop) }
+              onClick={() => this.onUserClickDataPicker()}
               readonly
             />
           </div>
@@ -168,7 +168,7 @@ export class FilterPanel {
               placeholder="To"
               type="text"
               value={currentFilter[index].value}
-              onClick={e => this.onUserClickDataPicker.bind(this, index, prop) }
+              onClick={() => this.onUserClickDataPicker.bind(this, index, prop) }
               readonly
             />
 
@@ -337,7 +337,7 @@ export class FilterPanel {
     if (!this.disableDynamicFiltering) this.debouncedApplyFilter();
   }
 
-  private onUserClickDataPicker(index: number, prop: RevoGrid.ColumnProp, event: Event){
+  private onUserClickDataPicker(){
        //TODO
   }
 
