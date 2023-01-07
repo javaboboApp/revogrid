@@ -12,13 +12,11 @@ export const filterNames = {
   none: 'None',
   empty: 'Not set',
   notEmpty: 'Set',
-
   eq: 'Equal',
   notEq: 'Not equal',
   begins: 'Begins with',
   contains: 'Contains',
   notContains: 'Does not contain',
-
   eqN: '=',
   neqN: '!=',
   gt: '>',

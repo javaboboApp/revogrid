@@ -70,6 +70,10 @@ export namespace Components {
          */
         "filter": boolean | ColumnFilterConfig;
         /**
+          * Callback that indicate that filter changed
+         */
+        "filterchanged": Function;
+        /**
           * Defines how many rows/columns should be rendered outside visible area.
          */
         "frameSize": number;
@@ -529,6 +533,10 @@ declare namespace LocalJSX {
           * Enables filter plugin Can be boolean Can be filter collection
          */
         "filter"?: boolean | ColumnFilterConfig;
+        /**
+          * Callback that indicate that filter changed
+         */
+        "filterchanged"?: Function;
         /**
           * Defines how many rows/columns should be rendered outside visible area.
          */

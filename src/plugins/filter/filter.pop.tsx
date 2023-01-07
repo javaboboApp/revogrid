@@ -149,30 +149,29 @@ export class FilterPanel {
 
       return (
         <div class={RANGE_FILTER_CLASS}>
-          <div class={FROM_INPUT_RANGE_FILTER_CLASS} >
+          <div >
             <input
+              class={FROM_INPUT_RANGE_FILTER_CLASS}
               id={`filter-input-${currentFilter[index].id}`}
               placeholder="From"
               type="text"
               value={currentFilter[index].value}
-              onInput={this.onUserInput.bind(this, index, prop)}
-              onKeyDown={e => this.onKeyDown(e)}
-              onClick={e=> alert(e)}
+    
+              onClick={e => this.onUserClickDataPicker.bind(this, index, prop) }
               readonly
             />
           </div>
-
-          <div class={TO_INPUT_RANGE_FILTER_CLASS}>
+          <div>
             <input
+              class={TO_INPUT_RANGE_FILTER_CLASS}
               id={`filter-input-${currentFilter[index].id}`}
               placeholder="To"
               type="text"
               value={currentFilter[index].value}
-              onInput={this.onUserInput.bind(this, index, prop)}
-              onKeyDown={e => this.onKeyDown(e)}
-              onClick={e=> alert(e)}
+              onClick={e => this.onUserClickDataPicker.bind(this, index, prop) }
               readonly
             />
+
           </div>
         </div>
       )
@@ -284,6 +283,9 @@ export class FilterPanel {
     this.filterChange.emit(this.filterItems);
   }, 400);
 
+
+
+
   private onAddNewFilter(e: Event) {
     const el = e.target as HTMLSelectElement;
     const type = el.value as FilterType;
@@ -333,6 +335,10 @@ export class FilterPanel {
     this.filterItems[prop][index].value = (event.target as HTMLInputElement).value;
 
     if (!this.disableDynamicFiltering) this.debouncedApplyFilter();
+  }
+
+  private onUserClickDataPicker(index: number, prop: RevoGrid.ColumnProp, event: Event){
+       //TODO
   }
 
   private onKeyDown(e: KeyboardEvent) {

@@ -61,7 +61,6 @@
     "prettier": "npx prettier --write ./src"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.182",
     "@angular/core": "^14.1.2",
     "@juggle/resize-observer": "^3.3.1",
     "@stencil/angular-output-target": "0.4.0",
@@ -73,6 +72,7 @@
     "@stencil/vue-output-target": "^0.6.2",
     "@types/events": "^3.0.0",
     "@types/jest": "^26.0.20",
+    "@types/lodash": "^4.14.182",
     "@types/node": "^18.7.2",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
@@ -80,6 +80,7 @@
     "gh-pages": "^4.0.0",
     "jest": "26.0.1",
     "jest-cli": "26.0.1",
+    "ncp": "^2.0.0",
     "prettier": "2.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

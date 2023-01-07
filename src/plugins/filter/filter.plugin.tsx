@@ -219,6 +219,10 @@ export default class FilterPlugin extends BasePlugin {
    * Triggers grid filtering
    */
   async doFiltering(collection: FilterCollection, items: RevoGrid.DataType[], columns: RevoGrid.ColumnRegular[], filterItems: MultiFilterItem) {
+    //TODO  doFiltering called
+
+    // alert('doFiltering called')
+
     const columnsToUpdate: RevoGrid.ColumnRegular[] = [];
 
     columns.forEach(rgCol => {

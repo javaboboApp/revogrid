@@ -153,6 +153,13 @@ export class RevoGridComponent {
    */
   @Prop() stretch: boolean | string = true;
 
+
+
+  /**
+   * Callback that indicate that filter changed
+  */
+  @Prop() filterchanged: Function = null;
+
   // --------------------------------------------------------------------------
   //
   //  Events
@@ -760,6 +767,12 @@ export class RevoGridComponent {
     }
   }
 
+  @Watch('filterchanged') onFilterChange(callback: Function) {
+       if(callback){
+        callback()
+       }
+  }
+
   connectedCallback() {
     this.viewportProvider = new ViewportProvider();
     this.themeService = new ThemeService({
@@ -816,6 +829,7 @@ export class RevoGridComponent {
     );
     this.applyStretch(this.stretch);
     this.themeChanged(this.theme);
+    this.onFilterChange(this.filterchanged)
     this.columnChanged(this.columns);
     this.dataChanged(this.source);
     this.dataTopChanged(this.pinnedTopSource);
