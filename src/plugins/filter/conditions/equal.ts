@@ -12,7 +12,7 @@ const eq: LogicFunction = (value: LogicFunctionParam, extra?: LogicFunctionExtra
   if (filterVal.length === 0) {
     return true;
   }
-  
+
   return value.toLocaleLowerCase() === filterVal;
 };
 

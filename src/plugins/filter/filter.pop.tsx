@@ -39,6 +39,10 @@ export type ShowData = {
 
 const defaultType: FilterType = 'none';
 
+const RANGE_FILTER_CLASS = 'range-filter-data-picker';
+const FROM_INPUT_RANGE_FILTER_CLASS = 'from-input-range-filter-data-picker';
+const TO_INPUT_RANGE_FILTER_CLASS = 'to-input-range-filter-data-picker';
+
 const FILTER_LIST_CLASS = 'multi-filter-list';
 const FILTER_LIST_CLASS_ACTION = 'multi-filter-list-action';
 
@@ -126,18 +130,57 @@ export class FilterPanel {
 
     if (!currentFilter) return '';
 
-    if (this.filterEntities[currentFilter[index].type].extra !== 'input') return '';
+    const extra = this.filterEntities[currentFilter[index].type].extra;
 
-    return (
-      <input
-        id={`filter-input-${currentFilter[index].id}`}
-        placeholder="Enter value..."
-        type="text"
-        value={currentFilter[index].value}
-        onInput={this.onUserInput.bind(this, index, prop)}
-        onKeyDown={e => this.onKeyDown(e)}
-      />
-    );
+    if (extra == 'input') {
+      return (
+        <input
+          id={`filter-input-${currentFilter[index].id}`}
+          placeholder="Enter value..."
+          type="text"
+          value={currentFilter[index].value}
+          onInput={this.onUserInput.bind(this, index, prop)}
+          onKeyDown={e => this.onKeyDown(e)}
+        />
+      );
+    }
+
+    if (extra == 'datepicker') {
+
+      return (
+        <div class={RANGE_FILTER_CLASS}>
+          <div class={FROM_INPUT_RANGE_FILTER_CLASS} >
+            <input
+              id={`filter-input-${currentFilter[index].id}`}
+              placeholder="From"
+              type="text"
+              value={currentFilter[index].value}
+              onInput={this.onUserInput.bind(this, index, prop)}
+              onKeyDown={e => this.onKeyDown(e)}
+              onClick={e=> alert(e)}
+              readonly
+            />
+          </div>
+
+          <div class={TO_INPUT_RANGE_FILTER_CLASS}>
+            <input
+              id={`filter-input-${currentFilter[index].id}`}
+              placeholder="To"
+              type="text"
+              value={currentFilter[index].value}
+              onInput={this.onUserInput.bind(this, index, prop)}
+              onKeyDown={e => this.onKeyDown(e)}
+              onClick={e=> alert(e)}
+              readonly
+            />
+          </div>
+        </div>
+      )
+    }
+
+
+    return '';
+
   }
 
   getFilterItemsList() {
@@ -203,11 +246,11 @@ export class FilterPanel {
           </select>
         </div>
         <div class="filter-actions">
-          {this.disableDynamicFiltering &&
+          {this.disableDynamicFiltering && (
             <RevoButton class={{ red: true, save: true }} onClick={() => this.onSave()}>
               {capts.save}
             </RevoButton>
-          }
+          )}
           <RevoButton class={{ red: true, reset: true }} onClick={() => this.onReset()}>
             {capts.reset}
           </RevoButton>

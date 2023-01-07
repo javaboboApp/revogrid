@@ -555,7 +555,7 @@ declare namespace LocalJSX {
         /**
           * Triggered after focus render finished. Can be used to access a focus element through @event.target
          */
-        "onAfterfocus"?: (event: RevoGridCustomEvent<{ model: any; column: RevoGrid.ColumnRegular; }>) => void;
+        "onAfterfocus"?: (event: RevoGridCustomEvent<{ model: any; column: RevoGrid.ColumnRegular }>) => void;
         /**
           * After rows updated
          */
@@ -610,7 +610,7 @@ declare namespace LocalJSX {
         /**
           * Before grid focus lost happened. Use e.preventDefault() to prevent cell focus change.
          */
-        "onBeforefocuslost"?: (event: RevoGridCustomEvent<FocusedData|null>) => void;
+        "onBeforefocuslost"?: (event: RevoGridCustomEvent<FocusedData | null>) => void;
         /**
           * Before range edit event. Triggered before range data applied, when range selection happened. Use e.preventDefault() to prevent edit data set and use you own.
          */
@@ -905,7 +905,7 @@ declare namespace LocalJSX {
         "contentWidth"?: number;
         "onResizeViewport"?: (event: RevogrViewportScrollCustomEvent<RevoGrid.ViewPortResizeEvent>) => void;
         "onScrollViewport"?: (event: RevogrViewportScrollCustomEvent<RevoGrid.ViewPortScrollEvent>) => void;
-        "onScrollchange"?: (event: RevogrViewportScrollCustomEvent<{ type: RevoGrid.DimensionType; hasScroll: boolean; }>) => void;
+        "onScrollchange"?: (event: RevogrViewportScrollCustomEvent<{ type: RevoGrid.DimensionType; hasScroll: boolean }>) => void;
     }
     interface IntrinsicElements {
         "revo-grid": RevoGrid;

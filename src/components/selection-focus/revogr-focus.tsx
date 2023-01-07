@@ -32,7 +32,7 @@ export class RevogrFocus {
     const column = getSourceItem(this.colData, focus.x);
     this.afterFocus.emit({
       model,
-      column
+      column,
     });
   }
 

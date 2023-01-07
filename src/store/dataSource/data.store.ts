@@ -62,11 +62,7 @@ export default class DataStore<T extends GDataType, ST extends GDimension> {
    * @param source - data column/rgRow source
    * @param grouping - grouping information if present
    */
-  updateData(
-    source: T[],
-    grouping?: { depth: number; groups?: Groups; customRenderer?: GroupLabelTemplateFunc },
-    silent = false,
-  ) {
+  updateData(source: T[], grouping?: { depth: number; groups?: Groups; customRenderer?: GroupLabelTemplateFunc }, silent = false) {
     // during full update we do drop trim
     if (!silent) {
       this.store.set('trimmed', {});

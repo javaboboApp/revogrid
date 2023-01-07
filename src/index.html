@@ -85,12 +85,14 @@
     <section class="content">
       <div class="tile large grid-holder">
         <!-- Grid init-->
+         <!-- TODO-->
         <revo-grid theme="material" row-headers can-move-columns stretch="false" class="my" key="1"></revo-grid>
       </div>
     </section>
 
     <!--Helper section for testing-->
     <section class="sidebar">
+      
       <button onclick="clearGrouping()">Clear grouping</button>
       <button onclick="setTrimmed([3])">Set trimmed 3</button>
       <button onclick="setTrimmed([])">Clear trimmed</button>
@@ -289,14 +291,15 @@
           return cellValue === extraValue;
       };
       // if you want extra input field for @extraValue
-      filterFunc.extra = 'input';
+      //TODO
+      filterFunc.extra = 'datepicker';
 
       const filterConfig = {
         include: ['newEqual'],
         customFilters: {
           'newEqual': {
             columnFilterType: 'myFilterType', // column filter type id
-            name: 'myEqual',
+            name: 'Date Range',
             func: filterFunc
           }
         },

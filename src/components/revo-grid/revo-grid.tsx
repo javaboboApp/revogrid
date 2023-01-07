@@ -31,7 +31,7 @@ import ColumnPlugin from '../../plugins/moveColumn/columnDragPlugin';
 
 @Component({
   tag: 'revo-grid',
-  styleUrl: 'revo-grid-style.scss'
+  styleUrl: 'revo-grid-style.scss',
 })
 export class RevoGridComponent {
   // --------------------------------------------------------------------------
@@ -126,7 +126,7 @@ export class RevoGridComponent {
    * Enables column move plugin
    * Can be boolean
    */
-   @Prop() canMoveColumns: boolean = false;
+  @Prop() canMoveColumns: boolean = false;
   /**
    * Trimmed rows
    * Functionality which allows to hide rows from main data set
@@ -198,7 +198,7 @@ export class RevoGridComponent {
    * Triggered after focus render finished.
    * Can be used to access a focus element through @event.target
    */
-  @Event() afterfocus: EventEmitter<{ model: any; column: RevoGrid.ColumnRegular; }>;
+  @Event() afterfocus: EventEmitter<{ model: any; column: RevoGrid.ColumnRegular }>;
 
   /**
    * Before rgRow order apply.
@@ -255,7 +255,7 @@ export class RevoGridComponent {
    * Before grid focus lost happened.
    * Use e.preventDefault() to prevent cell focus change.
    */
-  @Event() beforefocuslost: EventEmitter<FocusedData|null>;
+  @Event() beforefocuslost: EventEmitter<FocusedData | null>;
   /**
    * Before data apply.
    * You can override data source here
@@ -276,7 +276,6 @@ export class RevoGridComponent {
 
   /**  Before column applied but after column set gathered and viewport updated */
   @Event() beforecolumnapplied: EventEmitter<ColumnCollection>;
-  
 
   /**  Column updated */
   @Event() aftercolumnsset: EventEmitter<{
@@ -500,24 +499,23 @@ export class RevoGridComponent {
   /**
    * Get the currently focused cell.
    */
-  @Method() async getFocused(): Promise<FocusedData|null> {
+  @Method() async getFocused(): Promise<FocusedData | null> {
     return this.viewport?.getFocused();
   }
 
   /**
    * Get the currently selected Range.
    */
-  @Method() async getSelectedRange(): Promise<Selection.RangeArea|null> {
+  @Method() async getSelectedRange(): Promise<Selection.RangeArea | null> {
     return this.viewport?.getSelectedRange();
   }
-
 
   // --------------------------------------------------------------------------
   //
   //  Listeners outside scope
   //
   // --------------------------------------------------------------------------
-  
+
   /** Clear data which is outside of grid container */
   private handleOutsideClick({ target }: { target: HTMLElement | null }) {
     if (!target?.closest(`[${UUID}="${this.uuid}"]`)) {
@@ -530,8 +528,6 @@ export class RevoGridComponent {
   //  Listeners
   //
   // --------------------------------------------------------------------------
-
-
 
   /** DRAG AND DROP */
   @Listen('internalRowDragStart') onRowDragStarted(e: CustomEvent<{ pos: RevoGrid.PositionItem; text: string; event: MouseEvent }>) {
@@ -753,7 +749,7 @@ export class RevoGridComponent {
     }
     let stretch = this.internalPlugins.filter(p => isStretchPlugin(p))[0];
     if (isStretch) {
-      if(!stretch) {
+      if (!stretch) {
         this.internalPlugins.push(new StretchColumn(this.element, this.dimensionProvider));
       } else {
         (stretch as StretchColumn).applyStretch(this.columnProvider.getRawColumns());
@@ -827,7 +823,7 @@ export class RevoGridComponent {
     this.trimmedRowsChanged(this.trimmedRows);
     this.rowDefChanged(this.rowDefinitions);
     this.groupingChanged(this.grouping);
-    
+
     this.selectionStoreConnector = new SelectionStoreConnector();
     this.scrollingService = new GridScrollingService((e: RevoGrid.ViewPortScrollEvent) => {
       this.dimensionProvider.setViewPortCoordinate({
@@ -836,7 +832,7 @@ export class RevoGridComponent {
       });
       this.viewportscroll.emit(e);
     });
-    this.subscribers = { 'click': this.handleOutsideClick.bind(this) };
+    this.subscribers = { click: this.handleOutsideClick.bind(this) };
     for (let type in this.subscribers) {
       document.addEventListener(type, this.subscribers[type]);
     }
@@ -855,50 +851,57 @@ export class RevoGridComponent {
 
   render() {
     const contentHeight = this.dimensionProvider.stores['rgRow'].store.get('realSize');
-    this.viewport = new ViewportService({
-      columnProvider: this.columnProvider,
-      dataProvider: this.dataProvider,
-      dimensionProvider: this.dimensionProvider,
-      viewportProvider: this.viewportProvider,
-      uuid: this.uuid,
-      scrollingService: this.scrollingService,
-      orderService: this.orderService,
-      selectionStoreConnector: this.selectionStoreConnector,
-      resize: c => this.aftercolumnresize.emit(c)
-    }, contentHeight);
+    this.viewport = new ViewportService(
+      {
+        columnProvider: this.columnProvider,
+        dataProvider: this.dataProvider,
+        dimensionProvider: this.dimensionProvider,
+        viewportProvider: this.viewportProvider,
+        uuid: this.uuid,
+        scrollingService: this.scrollingService,
+        orderService: this.orderService,
+        selectionStoreConnector: this.selectionStoreConnector,
+        resize: c => this.aftercolumnresize.emit(c),
+      },
+      contentHeight,
+    );
 
     const views: VNode[] = [];
     if (this.rowHeaders) {
       const anyView = this.viewport.columns[0];
-      views.push(<revogr-row-headers
-        height={contentHeight}
-        resize={this.resize}
-        dataPorts={anyView.dataPorts}
-        headerProp={anyView.headerProp}
-        uiid={anyView.prop[UUID]}
-        rowHeaderColumn={typeof this.rowHeaders === 'object' ? this.rowHeaders : undefined}
-        onScrollViewport={({ detail: e }: CustomEvent) => this.scrollingService.onScroll(e, 'headerRow')}
-        onElementToScroll={({ detail: e }: CustomEvent) => this.scrollingService.registerElement(e, 'headerRow')}
-      />);
+      views.push(
+        <revogr-row-headers
+          height={contentHeight}
+          resize={this.resize}
+          dataPorts={anyView.dataPorts}
+          headerProp={anyView.headerProp}
+          uiid={anyView.prop[UUID]}
+          rowHeaderColumn={typeof this.rowHeaders === 'object' ? this.rowHeaders : undefined}
+          onScrollViewport={({ detail: e }: CustomEvent) => this.scrollingService.onScroll(e, 'headerRow')}
+          onElementToScroll={({ detail: e }: CustomEvent) => this.scrollingService.registerElement(e, 'headerRow')}
+        />,
+      );
     }
-    views.push(<ViewPortSections
-      columnFilter={!!this.filter}
-      resize={this.resize}
-      readonly={this.readonly}
-      range={this.range}
-      rowClass={this.rowClass}
-      editors={this.editors}
-      useClipboard={this.useClipboard}
-      columns={this.viewport.columns}
-      onEdit={detail => {
-        const event = this.beforeeditstart.emit(detail);
-        if (!event.defaultPrevented) {
-          this.selectionStoreConnector.setEdit(detail.isCancel ? false : detail.val);
-        }
-      }}
-      registerElement={(e, k) => this.scrollingService.registerElement(e, k)}
-      onScroll={details => this.scrollingService.onScroll(details)}
-    />);
+    views.push(
+      <ViewPortSections
+        columnFilter={!!this.filter}
+        resize={this.resize}
+        readonly={this.readonly}
+        range={this.range}
+        rowClass={this.rowClass}
+        editors={this.editors}
+        useClipboard={this.useClipboard}
+        columns={this.viewport.columns}
+        onEdit={detail => {
+          const event = this.beforeeditstart.emit(detail);
+          if (!event.defaultPrevented) {
+            this.selectionStoreConnector.setEdit(detail.isCancel ? false : detail.val);
+          }
+        }}
+        registerElement={(e, k) => this.scrollingService.registerElement(e, k)}
+        onScroll={details => this.scrollingService.onScroll(details)}
+      />,
+    );
     return (
       <Host {...{ [`${UUID}`]: this.uuid }}>
         <RevoViewPort
@@ -908,7 +911,9 @@ export class RevoGridComponent {
           registerElement={(e, k) => this.scrollingService.registerElement(e, k)}
           nakedClick={() => this.viewport.clearEdit()}
           onScroll={details => this.scrollingService.onScroll(details)}
-        >{views}</RevoViewPort>
+        >
+          {views}
+        </RevoViewPort>
         {this.extraElements}
       </Host>
     );

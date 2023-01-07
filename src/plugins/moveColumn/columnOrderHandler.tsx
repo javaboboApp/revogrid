@@ -29,11 +29,19 @@ export class ColumnOrderHandler {
     });
   }
 
-  start(e: MouseEvent, { dataEl, gridRect, scrollEl }: {
-    dataEl: HTMLElement;
-    gridRect: DOMRect;
-    scrollEl: Element;
-  }, dir: 'top' | 'left'  = 'left') {
+  start(
+    e: MouseEvent,
+    {
+      dataEl,
+      gridRect,
+      scrollEl,
+    }: {
+      dataEl: HTMLElement;
+      gridRect: DOMRect;
+      scrollEl: Element;
+    },
+    dir: 'top' | 'left' = 'left',
+  ) {
     const scrollContainerRect = scrollEl.getBoundingClientRect();
     if (scrollContainerRect) {
       this.offset = scrollContainerRect[dir] - gridRect[dir];

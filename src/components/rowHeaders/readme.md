@@ -1,7 +1,5 @@
 # revogr-row-headers
 
-
-
 <!-- Auto Generated Below -->
 
 

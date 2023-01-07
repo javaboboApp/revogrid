@@ -8,8 +8,6 @@ import { ElementScroll } from '../revo-grid/viewport.scrolling.service';
 import { ViewportData } from '../revo-grid/viewport.interfaces';
 import { RowHeaderRender } from './row-header-render';
 
-
-
 const LETTER_BLOCK_SIZE = 10;
 
 @Component({ tag: 'revogr-row-headers' })
@@ -87,12 +85,14 @@ export class RevogrRowHeaders {
       canResize: false,
       parent,
       slot: 'header',
-    }
-    return <Host class="rowHeaders" key="rowHeaders">
-      <revogr-viewport-scroll {...viewportScroll}>
-        <revogr-header {...viewportHeader} />
-        {dataViews}
-      </revogr-viewport-scroll>
-    </Host>;
-    }
+    };
+    return (
+      <Host class="rowHeaders" key="rowHeaders">
+        <revogr-viewport-scroll {...viewportScroll}>
+          <revogr-header {...viewportHeader} />
+          {dataViews}
+        </revogr-viewport-scroll>
+      </Host>
+    );
+  }
 }

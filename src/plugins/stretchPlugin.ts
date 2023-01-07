@@ -20,12 +20,9 @@ type StretchedData = {
   index: number;
 };
 export default class StretchColumn extends BasePlugin {
-  private stretchedColumn: StretchedData|null = null;
+  private stretchedColumn: StretchedData | null = null;
   private readonly scrollSize;
-  constructor(
-    revogrid: HTMLRevoGridElement,
-    private dimensionProvider: DimensionProvider
-  ) {
+  constructor(revogrid: HTMLRevoGridElement, private dimensionProvider: DimensionProvider) {
     super(revogrid);
     this.scrollSize = getScrollbarWidth(document);
     const beforecolumnapplied = ({ detail: { columns } }: CustomEvent<ColumnCollection>) => this.applyStretch(columns);
@@ -76,11 +73,11 @@ export default class StretchColumn extends BasePlugin {
       // size for column shouldn't be defined
       const colSize = last?.size || this.revogrid.colSize || 0;
       const size = sizeDifference + colSize - 1;
-      if (last && !last.autoSize && (colSize < size)) {
+      if (last && !last.autoSize && colSize < size) {
         this.stretchedColumn = {
           initialSize: size,
           index,
-          size
+          size,
         };
         this.apply();
         this.activateChanges();
@@ -89,6 +86,6 @@ export default class StretchColumn extends BasePlugin {
   }
 }
 
-export function isStretchPlugin(plugin: RevoPlugin.Plugin|StretchColumn): plugin is StretchColumn {
+export function isStretchPlugin(plugin: RevoPlugin.Plugin | StretchColumn): plugin is StretchColumn {
   return !!(plugin as StretchColumn).applyStretch;
 }

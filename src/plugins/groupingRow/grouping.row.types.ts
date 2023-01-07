@@ -1,10 +1,7 @@
 import { VNode } from '@stencil/core';
 import { RevoGrid } from '../../interfaces';
 
-export type GroupLabelTemplateFunc = (
-  createElement: RevoGrid.HyperFunc<VNode>,
-  props: { name: string; itemIndex: number; expanded: boolean; depth: number; },
-) => any;
+export type GroupLabelTemplateFunc = (createElement: RevoGrid.HyperFunc<VNode>, props: { name: string; itemIndex: number; expanded: boolean; depth: number }) => any;
 
 export type GroupingOptions = {
   // properties array to group

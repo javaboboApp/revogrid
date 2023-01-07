@@ -112,10 +112,8 @@ export default class ColumnPlugin extends BasePlugin {
     const cols = this.getDimension(data.pin || 'rgCol');
     const gridRect = this.revogrid.getBoundingClientRect();
     const elRect = dataEl.getBoundingClientRect();
-    const startItem = getItemByPosition(
-      cols,
-      getLeftRelative(event.x, gridRect.left, elRect.left - gridRect.left));
-  
+    const startItem = getItemByPosition(cols, getLeftRelative(event.x, gridRect.left, elRect.left - gridRect.left));
+
     this.staticDragData = {
       startPos: event.x,
       startItem,
@@ -147,10 +145,7 @@ export default class ColumnPlugin extends BasePlugin {
       const x = getLeftRelative(e.x, this.dragData.gridRect.left, this.dragData.scrollOffset);
       const rgCol = getItemByPosition(this.staticDragData.cols, x);
       this.orderUi.autoscroll(x, dragData.elRect.width);
-      this.orderUi.showHandler(
-        rgCol.end + dragData.scrollOffset,
-        dragData.gridRect.width
-      );
+      this.orderUi.showHandler(rgCol.end + dragData.scrollOffset, dragData.gridRect.width);
     }
   }
 
@@ -179,7 +174,7 @@ export default class ColumnPlugin extends BasePlugin {
         ...this.staticDragData,
         startPosition: this.staticDragData.startItem,
         newPosition,
-        newItem: store.get('source')[items[this.staticDragData.startItem.itemIndex]]
+        newItem: store.get('source')[items[this.staticDragData.startItem.itemIndex]],
       });
       if (!stopDrag) {
         // todo: if move item out of group remove item from group
@@ -210,11 +205,7 @@ export default class ColumnPlugin extends BasePlugin {
     this.clearLocalSubscriptions();
   }
 
-  private getData({
-    gridEl,
-    dataEl,
-    data,
-  }: StaticData): EventData {
+  private getData({ gridEl, dataEl, data }: StaticData): EventData {
     const gridRect = gridEl.getBoundingClientRect();
     const elRect = dataEl.getBoundingClientRect();
     const scrollOffset = elRect.left - gridRect.left;
@@ -230,10 +221,6 @@ export default class ColumnPlugin extends BasePlugin {
   }
 }
 
-export function getLeftRelative(
-  absoluteX: number,
-  gridPos: number,
-  offset: number
-): number {
+export function getLeftRelative(absoluteX: number, gridPos: number, offset: number): number {
   return absoluteX - gridPos - offset;
 }

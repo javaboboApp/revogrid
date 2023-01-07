@@ -24,12 +24,15 @@ export const HeaderCellRenderer = ({ data, props }: Props, children: VNode[]): V
     }
   }
   return (
-    <ResizableElement {...cellProps} onMouseDown={(e: MouseEvent) => {
-      dispatch(e.currentTarget as HTMLElement, ON_COLUMN_CLICK, {
-        data,
-        event: e,
-      });
-     }}>
+    <ResizableElement
+      {...cellProps}
+      onMouseDown={(e: MouseEvent) => {
+        dispatch(e.currentTarget as HTMLElement, ON_COLUMN_CLICK, {
+          data,
+          event: e,
+        });
+      }}
+    >
       <div class="header-content">{colTemplate}</div>
       {children}
     </ResizableElement>

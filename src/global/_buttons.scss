@@ -20,7 +20,7 @@
   }
 
   &.red {
-    $bg: #E0662E;
+    $bg: #e0662e;
     background-color: $bg;
     border: 1px solid darken($color: $bg, $amount: 5);
   }
@@ -40,7 +40,4 @@
     color: $color;
     box-shadow: none;
   }
-
-  
-  
 }

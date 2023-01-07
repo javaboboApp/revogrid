@@ -1,13 +1,5 @@
 import { RevoGrid } from '../../interfaces';
-import {
-    GROUP_DEPTH,
-    GROUP_EXPANDED,
-    PSEUDO_GROUP_COLUMN,
-    PSEUDO_GROUP_ITEM,
-    PSEUDO_GROUP_ITEM_ID,
-    PSEUDO_GROUP_ITEM_VALUE,
-    GROUP_ORIGINAL_INDEX,
-  } from './grouping.const';
+import { GROUP_DEPTH, GROUP_EXPANDED, PSEUDO_GROUP_COLUMN, PSEUDO_GROUP_ITEM, PSEUDO_GROUP_ITEM_ID, PSEUDO_GROUP_ITEM_VALUE, GROUP_ORIGINAL_INDEX } from './grouping.const';
 import { GroupLabelTemplateFunc } from './grouping.row.types';
 
 export type ExpandedOptions = {
@@ -16,8 +8,7 @@ export type ExpandedOptions = {
   groupLabelTemplate?: GroupLabelTemplateFunc;
 };
 
-type GroupedData = Map<string, GroupedData | RevoGrid.DataType[]>
-
+type GroupedData = Map<string, GroupedData | RevoGrid.DataType[]>;
 
 /**
  * Gather data for grouping
@@ -28,15 +19,15 @@ type GroupedData = Map<string, GroupedData | RevoGrid.DataType[]>
 export function gatherGrouping(array: RevoGrid.DataType[], groupIds: RevoGrid.ColumnProp[], { prevExpanded, expandedAll }: ExpandedOptions) {
   const groupedItems: GroupedData = new Map();
   array.forEach((item, originalIndex) => {
-    const groupLevelValues = groupIds.map((groupId) => item[groupId] || null);
+    const groupLevelValues = groupIds.map(groupId => item[groupId] || null);
     const lastLevelValue = groupLevelValues.pop();
     let currentGroupLevel = groupedItems;
-    groupLevelValues.forEach((value) => {
+    groupLevelValues.forEach(value => {
       if (!currentGroupLevel.has(value)) {
         currentGroupLevel.set(value, new Map());
       }
       currentGroupLevel = currentGroupLevel.get(value) as GroupedData;
-    })
+    });
     if (!currentGroupLevel.has(lastLevelValue)) {
       currentGroupLevel.set(lastLevelValue, []);
     }
@@ -72,14 +63,14 @@ export function gatherGrouping(array: RevoGrid.DataType[], groupIds: RevoGrid.Co
         trimmed[itemIndex] = true;
       }
       if (Array.isArray(innerGroupedValues)) {
-        innerGroupedValues.forEach((value) => {
+        innerGroupedValues.forEach(value => {
           itemIndex += 1;
           if (!isGroupExpanded) {
             trimmed[itemIndex] = true;
           }
           oldNewIndexMap[value[GROUP_ORIGINAL_INDEX]] = itemIndex;
           const pseudoGroupTestIds = levelIds.map((_value, index) => levelIds.slice(0, index + 1).join(','));
-          pseudoGroupTestIds.forEach((pseudoGroupTestId) => {
+          pseudoGroupTestIds.forEach(pseudoGroupTestId => {
             if (!pseudoGroupTest[pseudoGroupTestId]) {
               pseudoGroupTest[pseudoGroupTestId] = [];
             }

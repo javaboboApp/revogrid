@@ -35,9 +35,7 @@ const GroupingRowRenderer = (props: Props) => {
   if (groupingCustomRenderer) {
     return (
       <RowRenderer {...props} rowClass="groupingRow" depth={depth}>
-        <div onClick={e => expandEvent(e, model, itemIndex)}>
-          {groupingCustomRenderer(h, { name, itemIndex, expanded, depth })}
-        </div>
+        <div onClick={e => expandEvent(e, model, itemIndex)}>{groupingCustomRenderer(h, { name, itemIndex, expanded, depth })}</div>
       </RowRenderer>
     );
   }
