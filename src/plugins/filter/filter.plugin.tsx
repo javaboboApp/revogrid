@@ -223,20 +223,20 @@ export default class FilterPlugin extends BasePlugin {
     //TODO  doFiltering called
 
 
-    // const columnsToUpdate: RevoGrid.ColumnRegular[] = [];
+    const columnsToUpdate: RevoGrid.ColumnRegular[] = [];
 
-    // columns.forEach(rgCol => {
-    //   const column = { ...rgCol };
-    //   const hasFilter = filterItems[column.prop];
-    //   if (column[FILTER_PROP] && !hasFilter) {
-    //     delete column[FILTER_PROP];
-    //     columnsToUpdate.push(column);
-    //   }
-    //   if (!column[FILTER_PROP] && hasFilter) {
-    //     columnsToUpdate.push(column);
-    //     column[FILTER_PROP] = true;
-    //   }
-    // });
+    columns.forEach(rgCol => {
+      const column = { ...rgCol };
+      const hasFilter = filterItems[column.prop];
+      if (column[FILTER_PROP] && !hasFilter) {
+        delete column[FILTER_PROP];
+        columnsToUpdate.push(column);
+      }
+      if (!column[FILTER_PROP] && hasFilter) {
+        columnsToUpdate.push(column);
+        column[FILTER_PROP] = true;
+      }
+    });
     const itemsToFilter = this.getRowFilter(items, filterItems);
     // check is filter event prevented
     // const { defaultPrevented, detail } = this.emit('beforefiltertrimmed', { collection, itemsToFilter, source: items, filterItems });
@@ -250,10 +250,10 @@ export default class FilterPlugin extends BasePlugin {
     //   return;
     // }
 
-    console.log("**filter** applies " + JSON.stringify(filterItems) )
+    // console.log("**filter** applies " + JSON.stringify(columnsToUpdate) )
     // // applies the hasFilter to the columns to show filter icon
     // await this.revogrid.updateColumns(columnsToUpdate);
-    this.emit('afterFilterApply');
+    this.emit('afterFilterApply', {columnsToUpdate, filterItems});
   }
 
   async clearFiltering() {
