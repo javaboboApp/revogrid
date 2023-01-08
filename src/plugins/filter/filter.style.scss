@@ -150,12 +150,26 @@ revogr-filter-panel {
   }
 }
 
-.from-input-range-filter-data-picker{
+.from-input-range-filter-data-picker {
   cursor: pointer; 
+  padding: 6px;
+  border:none;
+}
+
+.e-input-group .e-input-group-icon:last-child, .e-input-group.e-control-wrapper .e-input-group-icon:last-child {
+  font-size: 12px;
+  background-color: white;
+}
+
+.e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input {
+  height: 40px;
+  font-size: 20px;
 }
 
 .to-input-range-filter-data-picker{
   cursor: pointer; 
+  padding: 6px;
+  border:none;
 }
 
 .multi-filter-list {

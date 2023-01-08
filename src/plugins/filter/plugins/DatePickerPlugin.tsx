@@ -18,20 +18,20 @@ export class DatePickerPlugin {
     private datepicker: DatePicker
 
     constructor() {
-        enableRipple(true);
         this.datepicker = new DatePicker({
             placeholder: this.placeHolder,
+            cssClass: this.input_class
         });
     }
 
 
     componentDidRender(): void {
         this.datepicker.appendTo('#' + this.input_id)
+
     }
 
     render() {
-        return (<input class={this.input_class} id={this.input_id} type={this.type} onClick={(e) => { this.datepicker.show(); }} />);
-
+         return (<input class={this.input_class}   id={this.input_id} type={this.type} onClick={(e) => { this.datepicker.show(); }} />);
     }
 
 }
