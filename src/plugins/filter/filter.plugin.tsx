@@ -2,6 +2,7 @@ import { h } from '@stencil/core';
 import BasePlugin from '../basePlugin';
 import { RevoGrid } from '../../interfaces';
 import { FILTER_PROP, isFilterBtn } from './filter.button';
+// import {  isFilterBtn } from './filter.button';
 import { MultiFilterItem } from './filter.pop';
 import { filterEntities, filterNames, FilterType, filterTypes } from './filter.service';
 import { LogicFunction } from './filter.types';
@@ -221,37 +222,37 @@ export default class FilterPlugin extends BasePlugin {
   async doFiltering(collection: FilterCollection, items: RevoGrid.DataType[], columns: RevoGrid.ColumnRegular[], filterItems: MultiFilterItem) {
     //TODO  doFiltering called
 
-    // alert('doFiltering called')
 
-    const columnsToUpdate: RevoGrid.ColumnRegular[] = [];
+    // const columnsToUpdate: RevoGrid.ColumnRegular[] = [];
 
-    columns.forEach(rgCol => {
-      const column = { ...rgCol };
-      const hasFilter = filterItems[column.prop];
-      if (column[FILTER_PROP] && !hasFilter) {
-        delete column[FILTER_PROP];
-        columnsToUpdate.push(column);
-      }
-      if (!column[FILTER_PROP] && hasFilter) {
-        columnsToUpdate.push(column);
-        column[FILTER_PROP] = true;
-      }
-    });
+    // columns.forEach(rgCol => {
+    //   const column = { ...rgCol };
+    //   const hasFilter = filterItems[column.prop];
+    //   if (column[FILTER_PROP] && !hasFilter) {
+    //     delete column[FILTER_PROP];
+    //     columnsToUpdate.push(column);
+    //   }
+    //   if (!column[FILTER_PROP] && hasFilter) {
+    //     columnsToUpdate.push(column);
+    //     column[FILTER_PROP] = true;
+    //   }
+    // });
     const itemsToFilter = this.getRowFilter(items, filterItems);
     // check is filter event prevented
-    const { defaultPrevented, detail } = this.emit('beforefiltertrimmed', { collection, itemsToFilter, source: items, filterItems });
-    if (defaultPrevented) {
-      return;
-    }
+    // const { defaultPrevented, detail } = this.emit('beforefiltertrimmed', { collection, itemsToFilter, source: items, filterItems });
+    // if (defaultPrevented) {
+    //   return;
+    // }
 
-    // check is trimmed event prevented
-    const isAddedEvent = await this.revogrid.addTrimmed(detail.itemsToFilter, FILTER_TRIMMED_TYPE);
-    if (isAddedEvent.defaultPrevented) {
-      return;
-    }
+    // // check is trimmed event prevented
+    // const isAddedEvent = await this.revogrid.addTrimmed(detail.itemsToFilter, FILTER_TRIMMED_TYPE);
+    // if (isAddedEvent.defaultPrevented) {
+    //   return;
+    // }
 
-    // applies the hasFilter to the columns to show filter icon
-    await this.revogrid.updateColumns(columnsToUpdate);
+    console.log("**filter** applies " + JSON.stringify(filterItems) )
+    // // applies the hasFilter to the columns to show filter icon
+    // await this.revogrid.updateColumns(columnsToUpdate);
     this.emit('afterFilterApply');
   }
 

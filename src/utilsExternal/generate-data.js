@@ -60,15 +60,29 @@ export function generateFakeDataObject(config = {}) {
         result[rgRow].key = 'b';
       }
     }
+
+
+
     if (!columns[rgCol]) {
-      columns[rgCol] = {
-        name: generateHeader(rgCol),
-        prop: rgCol,
-        filter: 'myFilterType',
-        sortable: true,
-        size: 200,
-        cellCompare: rgCol % 2 == 0 ? naturalSort : undefined,
-      };
+      if (j ==0) {
+        columns[rgCol] = {
+          name: generateHeader(rgCol),
+          prop: rgCol,
+          filter: 'myFilterType',
+          sortable: true,
+          size: 200,
+          cellCompare: rgCol % 2 == 0 ? naturalSort : undefined,
+        };
+      } else {
+        columns[rgCol] = {
+          name: generateHeader(rgCol),
+          prop: rgCol,
+          sortable: true,
+          size: 200,
+          cellCompare: rgCol % 2 == 0 ? naturalSort : undefined,
+        };
+      }
+
 
       // apply config
       if (colPinStart.indexOf(j) > -1) {
