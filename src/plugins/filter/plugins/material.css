@@ -98203,3 +98203,17 @@ div>.e-pv-bookmark-icon.e-pv-icon.e-right {
     opacity: .45
 }
 
+.e-input-group-icon.e-date-icon::before,
+*.e-control-wrapper .e-input-group-icon.e-date-icon::before {
+  content: "\e901";
+  font-family: "e-icons";
+}
+
+.e-calendar .e-header .e-date-icon-next::before {
+    content: "\e916";
+}
+
+.e-calendar .e-header .e-date-icon-prev::before {
+    content: "\e910";
+}
+
