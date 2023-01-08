@@ -649,6 +649,8 @@ export class RevoGridComponent {
 
   @Element() element: HTMLRevoGridElement;
 
+ 
+
   @Watch('columns') columnChanged(newVal: RevoGrid.ColumnDataSchema[] = []) {
     this.dimensionProvider.drop();
     const columnGather = ColumnDataProvider.getColumns(newVal, 0, this.columnTypes);
@@ -660,6 +662,9 @@ export class RevoGridComponent {
     }
     this.beforecolumnapplied.emit(columnGather);
     const columns = this.columnProvider.setColumns(columnGather);
+
+  
+
     this.aftercolumnsset.emit({
       columns,
       order: this.columnProvider.order,
@@ -772,6 +777,8 @@ export class RevoGridComponent {
         callback()
        }
   }
+
+
 
   connectedCallback() {
     this.viewportProvider = new ViewportProvider();

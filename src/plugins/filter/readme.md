@@ -46,6 +46,19 @@ Type: `Promise<void>`
 
 
 
+## Dependencies
+
+### Depends on
+
+- [date-picker](plugins)
+
+### Graph
+```mermaid
+graph TD;
+  revogr-filter-panel --> date-picker
+  style revogr-filter-panel fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

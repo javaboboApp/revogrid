@@ -70,7 +70,7 @@ export class FilterPanel {
   @Prop() filterCaptions: FilterCaptions | undefined;
   @Prop() disableDynamicFiltering: boolean = false;
   @Event() filterChange: EventEmitter<MultiFilterItem>;
-  
+
   @Listen('mousedown', { target: 'document' }) onMouseDown(e: MouseEvent): void {
     if (this.changes && !e.defaultPrevented) {
       const el = e.target as HTMLElement;
@@ -150,28 +150,21 @@ export class FilterPanel {
 
       return (
         <div class={RANGE_FILTER_CLASS}>
-          <div >
-            <input
-              class={FROM_INPUT_RANGE_FILTER_CLASS}
-              id={`first-range-date-filter-input-${currentFilter[index].id}`}
-              placeholder="From"
-              type="text"
-              value={currentFilter[index].value}
-              onClick={() => this.onUserClickDataPicker( index, prop)}
-              readonly
+          <div>
+            <date-picker
+              input_class={FROM_INPUT_RANGE_FILTER_CLASS}
+              input_id={`first-range-date-filter-input-${currentFilter[index].id}`}
+              placeHolder={"From"}
+              type={"text"}
             />
           </div>
           <div>
-            <input
-              class={TO_INPUT_RANGE_FILTER_CLASS}
-              id={`second-range-date-filter-input-${currentFilter[index].id}`}
-              placeholder="To"
-              type="text"
-              value={currentFilter[index].value}
-              onClick={() => this.onUserClickDataPicker( index, prop)}
-              readonly
+            <date-picker
+              input_class={TO_INPUT_RANGE_FILTER_CLASS}
+              input_id={`second-range-date-filter-input-${currentFilter[index].id}`}
+              placeHolder={"To"}
+              type={"text"}
             />
-
           </div>
         </div>
       )
@@ -337,11 +330,11 @@ export class FilterPanel {
     if (!this.disableDynamicFiltering) this.debouncedApplyFilter();
   }
 
-  private onUserClickDataPicker(index: number, prop: RevoGrid.ColumnProp){
- 
-        this.filterItems[prop][index].value = "hello";
-        //emit event that filter change by
-       this.filterChange.emit(this.filterItems);
+  private onUserClickDataPicker(index: number, prop: RevoGrid.ColumnProp) {
+
+    this.filterItems[prop][index].value = "hello";
+    //emit event that filter change by
+    this.filterChange.emit(this.filterItems);
   }
 
   private onKeyDown(e: KeyboardEvent) {

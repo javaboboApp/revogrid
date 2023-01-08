@@ -20,6 +20,12 @@ import { DataSourceState, Groups } from "./store/dataSource/data.store";
 import { ViewportData } from "./components/revo-grid/viewport.interfaces";
 import { ElementScroll } from "./components/revo-grid/viewport.scrolling.service";
 export namespace Components {
+    interface DatePicker {
+        "input_class": string;
+        "input_id": string;
+        "placeHolder": string;
+        "type": string;
+    }
     interface RevoGrid {
         /**
           * Add trimmed by type
@@ -401,6 +407,12 @@ export interface RevogrViewportScrollCustomEvent<T> extends CustomEvent<T> {
     target: HTMLRevogrViewportScrollElement;
 }
 declare global {
+    interface HTMLDatePickerElement extends Components.DatePicker, HTMLStencilElement {
+    }
+    var HTMLDatePickerElement: {
+        prototype: HTMLDatePickerElement;
+        new (): HTMLDatePickerElement;
+    };
     interface HTMLRevoGridElement extends Components.RevoGrid, HTMLStencilElement {
     }
     var HTMLRevoGridElement: {
@@ -480,6 +492,7 @@ declare global {
         new (): HTMLRevogrViewportScrollElement;
     };
     interface HTMLElementTagNameMap {
+        "date-picker": HTMLDatePickerElement;
         "revo-grid": HTMLRevoGridElement;
         "revogr-clipboard": HTMLRevogrClipboardElement;
         "revogr-data": HTMLRevogrDataElement;
@@ -496,6 +509,12 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface DatePicker {
+        "input_class"?: string;
+        "input_id"?: string;
+        "placeHolder"?: string;
+        "type"?: string;
+    }
     interface RevoGrid {
         /**
           * Autosize config Enable columns autoSize, for more details check @autoSizeColumn plugin By default disabled, hence operation is not resource efficient true to enable with default params (double header separator click for autosize) or provide config
@@ -916,6 +935,7 @@ declare namespace LocalJSX {
         "onScrollchange"?: (event: RevogrViewportScrollCustomEvent<{ type: RevoGrid.DimensionType; hasScroll: boolean }>) => void;
     }
     interface IntrinsicElements {
+        "date-picker": DatePicker;
         "revo-grid": RevoGrid;
         "revogr-clipboard": RevogrClipboard;
         "revogr-data": RevogrData;
@@ -935,6 +955,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "date-picker": LocalJSX.DatePicker & JSXBase.HTMLAttributes<HTMLDatePickerElement>;
             "revo-grid": LocalJSX.RevoGrid & JSXBase.HTMLAttributes<HTMLRevoGridElement>;
             "revogr-clipboard": LocalJSX.RevogrClipboard & JSXBase.HTMLAttributes<HTMLRevogrClipboardElement>;
             "revogr-data": LocalJSX.RevogrData & JSXBase.HTMLAttributes<HTMLRevogrDataElement>;

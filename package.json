@@ -90,6 +90,8 @@
     "vue": "^3.2.37"
   },
   "dependencies": {
+    "@duetds/date-picker": "^1.4.0",
+    "@syncfusion/ej2-calendars": "^20.4.42",
     "lodash": "^4.17.20"
   }
 }
