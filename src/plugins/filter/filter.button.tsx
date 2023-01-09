@@ -43,6 +43,7 @@ export const AndOrButton = ({ isAnd }: any) => {
 };
 
 export function isFilterBtn(e: HTMLElement) {
+ 
   if (e.classList.contains(FILTER_BUTTON_CLASS)) {
     return true;
   }

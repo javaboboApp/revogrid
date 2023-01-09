@@ -31,7 +31,7 @@ export class DatePickerPlugin {
     }
 
     render() {
-         return (<input class={this.input_class}   id={this.input_id} type={this.type} onClick={(e) => { this.datepicker.show(); }} />);
+         return (<input class={this.input_class}   id={this.input_id} type={this.type} onClick={(e) => { this.datepicker.show();  }} />);
     }
 
 }

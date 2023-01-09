@@ -46,6 +46,9 @@ const TO_INPUT_RANGE_FILTER_CLASS = 'to-input-range-filter-data-picker';
 const FILTER_LIST_CLASS = 'multi-filter-list';
 const FILTER_LIST_CLASS_ACTION = 'multi-filter-list-action';
 
+const CALENDAR_DAY_CLASS = 'e-day'
+const CALENDAR_CELL_CLASS = 'e-cell'
+
 @Component({
   tag: 'revogr-filter-panel',
   styleUrl: 'filter.style.scss',
@@ -74,10 +77,21 @@ export class FilterPanel {
   @Listen('mousedown', { target: 'document' }) onMouseDown(e: MouseEvent): void {
     if (this.changes && !e.defaultPrevented) {
       const el = e.target as HTMLElement;
-      if (this.isOutside(el) && !isFilterBtn(el)) {
+      if (this.isOutside(el) && !isFilterBtn(el) && !this.isNotCalender(el)) {
         this.changes = undefined;
       }
     }
+  }
+
+ private isNotCalender(el: HTMLElement) {
+ 
+    if (el.classList.contains(FROM_INPUT_RANGE_FILTER_CLASS) || 
+        el.classList.contains(TO_INPUT_RANGE_FILTER_CLASS) ||
+        el.classList.contains(CALENDAR_DAY_CLASS)||
+        el.classList.contains(CALENDAR_CELL_CLASS)) {
+      return true;
+    }
+    return false;
   }
   @Method() async show(newEntity?: ShowData) {
     this.changes = newEntity;
