@@ -90,7 +90,7 @@
     "vue": "^3.2.37"
   },
   "dependencies": {
-    "@syncfusion/ej2-calendars": "^20.4.42",
+    "@easepick/bundle": "^1.2.0",
     "lodash": "^4.17.20"
   }
 }

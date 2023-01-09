@@ -1,7 +1,8 @@
 import { Component, h, Prop } from '@stencil/core';
-import { DatePicker } from '@syncfusion/ej2-calendars';
 
-@Component({ tag: 'date-picker', styleUrl: 'material.css' })
+import {easepick} from '@easepick/bundle'
+
+@Component({ tag: 'date-picker', styleUrl: 'datapicker.style.css' })
 export class DatePickerPlugin {
 
     @Prop() placeHolder: string = ''
@@ -14,23 +15,22 @@ export class DatePickerPlugin {
 
     // @Prop() onCalendarClicked: () => void;
 
-    private datepicker: DatePicker
-
-    constructor() {
-        this.datepicker = new DatePicker({
-            placeholder: this.placeHolder,
-            cssClass: this.input_class
-        });
-    }
-
 
     componentDidRender(): void {
-        this.datepicker.appendTo('#' + this.input_id)
-
+        new easepick.create({
+            element: document.getElementById(this.input_id),
+            zIndex :10,
+            css: [
+              'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.0/dist/index.css'
+            ],
+            
+          });    
     }
 
+
+
     render() {
-         return (<input class={this.input_class}   id={this.input_id} type={this.type} onClick={() => { this.datepicker.show();  }} />);
+         return (<input class={this.input_class}   id={this.input_id} type={this.type}  placeholder={this.placeHolder}  />);
     }
 
 }
