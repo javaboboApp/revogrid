@@ -1,6 +1,6 @@
 {
   "name": "@rivercoders/revogrid",
-  "version": "3.3.5",
+  "version": "3.3.7",
   "description": "Virtual reactive data grid component - RevoGrid.",
   "license": "MIT",
   "directories": {
@@ -90,7 +90,6 @@
     "vue": "^3.2.37"
   },
   "dependencies": {
-    "@duetds/date-picker": "^1.4.0",
     "@syncfusion/ej2-calendars": "^20.4.42",
     "lodash": "^4.17.20"
   }

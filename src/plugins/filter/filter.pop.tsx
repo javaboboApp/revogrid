@@ -344,12 +344,12 @@ export class FilterPanel {
     if (!this.disableDynamicFiltering) this.debouncedApplyFilter();
   }
 
-  private onUserClickDataPicker(index: number, prop: RevoGrid.ColumnProp) {
+  // private onUserClickDataPicker(index: number, prop: RevoGrid.ColumnProp) {
 
-    this.filterItems[prop][index].value = "hello";
-    //emit event that filter change by
-    this.filterChange.emit(this.filterItems);
-  }
+  //   this.filterItems[prop][index].value = "hello";
+  //   //emit event that filter change by
+  //   this.filterChange.emit(this.filterItems);
+  // }
 
   private onKeyDown(e: KeyboardEvent) {
     if (e.key.toLowerCase() === 'enter') {

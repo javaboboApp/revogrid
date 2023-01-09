@@ -1,6 +1,5 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { DatePicker } from '@syncfusion/ej2-calendars';
-import { enableRipple } from '@syncfusion/ej2-base';
 
 @Component({ tag: 'date-picker', styleUrl: 'material.css' })
 export class DatePickerPlugin {
@@ -31,7 +30,7 @@ export class DatePickerPlugin {
     }
 
     render() {
-         return (<input class={this.input_class}   id={this.input_id} type={this.type} onClick={(e) => { this.datepicker.show();  }} />);
+         return (<input class={this.input_class}   id={this.input_id} type={this.type} onClick={() => { this.datepicker.show();  }} />);
     }
 
 }

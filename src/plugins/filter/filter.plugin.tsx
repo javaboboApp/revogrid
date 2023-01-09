@@ -237,7 +237,7 @@ export default class FilterPlugin extends BasePlugin {
         column[FILTER_PROP] = true;
       }
     });
-    const itemsToFilter = this.getRowFilter(items, filterItems);
+    // const itemsToFilter = this.getRowFilter(items, filterItems);
     // check is filter event prevented
     // const { defaultPrevented, detail } = this.emit('beforefiltertrimmed', { collection, itemsToFilter, source: items, filterItems });
     // if (defaultPrevented) {
@@ -253,7 +253,7 @@ export default class FilterPlugin extends BasePlugin {
     // console.log("**filter** applies " + JSON.stringify(columnsToUpdate) )
     // // applies the hasFilter to the columns to show filter icon
     // await this.revogrid.updateColumns(columnsToUpdate);
-    this.emit('afterFilterApply', {columnsToUpdate, filterItems});
+    this.emit('afterFilterApply', {columnsToUpdate, filterItems, collection, items});
   }
 
   async clearFiltering() {
@@ -298,60 +298,60 @@ export default class FilterPlugin extends BasePlugin {
     };
   }
 
-  private getRowFilter(rows: RevoGrid.DataType[], filterItems: MultiFilterItem) {
-    const propKeys = Object.keys(filterItems);
+  // private getRowFilter(rows: RevoGrid.DataType[], filterItems: MultiFilterItem) {
+  //   const propKeys = Object.keys(filterItems);
 
-    const trimmed: Record<number, boolean> = {};
-    let propFilterSatisfiedCount: number = 0;
-    let lastFilterResults: boolean[] = [];
+  //   const trimmed: Record<number, boolean> = {};
+  //   let propFilterSatisfiedCount: number = 0;
+  //   let lastFilterResults: boolean[] = [];
 
-    // each rows
-    rows.forEach((model, rowIndex) => {
-      // working on all props
-      for (const prop of propKeys) {
-        const propFilters = filterItems[prop];
+  //   // each rows
+  //   rows.forEach((model, rowIndex) => {
+  //     // working on all props
+  //     for (const prop of propKeys) {
+  //       const propFilters = filterItems[prop];
 
-        propFilterSatisfiedCount = 0;
-        lastFilterResults = [];
+  //       propFilterSatisfiedCount = 0;
+  //       lastFilterResults = [];
 
-        // testing each filter for a prop
-        for (const [filterIndex, filterData] of propFilters.entries()) {
-          // the filter LogicFunction based on the type
-          const filter = this.possibleFilterEntities[filterData.type];
+  //       // testing each filter for a prop
+  //       for (const [filterIndex, filterData] of propFilters.entries()) {
+  //         // the filter LogicFunction based on the type
+  //         const filter = this.possibleFilterEntities[filterData.type];
 
-          // THE MAGIC OF FILTERING IS HERE
-          if (filterData.relation === 'or') {
-            lastFilterResults = [];
-            if (filter(model[prop], filterData.value)) {
-              continue;
-            }
-            propFilterSatisfiedCount++;
-          } else {
-            // 'and' relation will need to know the next filter
-            // so we save this current filter to include it in the next filter
-            lastFilterResults.push(!filter(model[prop], filterData.value));
+  //         // THE MAGIC OF FILTERING IS HERE
+  //         if (filterData.relation === 'or') {
+  //           lastFilterResults = [];
+  //           if (filter(model[prop], filterData.value)) {
+  //             continue;
+  //           }
+  //           propFilterSatisfiedCount++;
+  //         } else {
+  //           // 'and' relation will need to know the next filter
+  //           // so we save this current filter to include it in the next filter
+  //           lastFilterResults.push(!filter(model[prop], filterData.value));
 
-            // check first if we have a filter on the next index to pair it with this current filter
-            const nextFilterData = propFilters[filterIndex + 1];
-            // stop the sequence if there is no next filter or if the next filter is not an 'and' relation
-            if (!nextFilterData || nextFilterData.relation !== 'and') {
-              // let's just continue since for sure propFilterSatisfiedCount cannot be satisfied
-              if (lastFilterResults.indexOf(true) === -1) {
-                lastFilterResults = [];
-                continue;
-              }
+  //           // check first if we have a filter on the next index to pair it with this current filter
+  //           const nextFilterData = propFilters[filterIndex + 1];
+  //           // stop the sequence if there is no next filter or if the next filter is not an 'and' relation
+  //           if (!nextFilterData || nextFilterData.relation !== 'and') {
+  //             // let's just continue since for sure propFilterSatisfiedCount cannot be satisfied
+  //             if (lastFilterResults.indexOf(true) === -1) {
+  //               lastFilterResults = [];
+  //               continue;
+  //             }
 
-              // we need to add all of the lastFilterResults since we need to satisfy all
-              propFilterSatisfiedCount += lastFilterResults.length;
-              lastFilterResults = [];
-            }
-          }
-        } // end of propFilters forEach
+  //             // we need to add all of the lastFilterResults since we need to satisfy all
+  //             propFilterSatisfiedCount += lastFilterResults.length;
+  //             lastFilterResults = [];
+  //           }
+  //         }
+  //       } // end of propFilters forEach
 
-        // add to the list of removed/trimmed rows of filter condition is satisfied
-        if (propFilterSatisfiedCount === propFilters.length) trimmed[rowIndex] = true;
-      } // end of for-of propKeys
-    });
-    return trimmed;
-  }
+  //       // add to the list of removed/trimmed rows of filter condition is satisfied
+  //       if (propFilterSatisfiedCount === propFilters.length) trimmed[rowIndex] = true;
+  //     } // end of for-of propKeys
+  //   });
+  //   return trimmed;
+  // }
 }
