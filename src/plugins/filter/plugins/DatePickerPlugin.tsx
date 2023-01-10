@@ -2,7 +2,7 @@ import { Component, h, Prop } from '@stencil/core';
 
 import {easepick} from '@easepick/bundle'
 
-@Component({ tag: 'date-picker', styleUrl: 'datapicker.style.css' })
+@Component({ tag: 'date-picker' })
 export class DatePickerPlugin {
 
     @Prop() placeHolder: string = ''
@@ -15,7 +15,7 @@ export class DatePickerPlugin {
 
     // @Prop() onCalendarClicked: () => void;
 
-
+  
     componentDidRender(): void {
         new easepick.create({
             element: document.getElementById(this.input_id),
